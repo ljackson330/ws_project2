@@ -1,0 +1,65 @@
+<!-- portfolio/templates/portfolio/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load socialaccount %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liam Jackson</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'styles.css' %}" rel="stylesheet">
+    <script type="module" defer src="https://cdn.jsdelivr.net/gh/imananoosheh/github-contributions-fetch@latest/github_calendar_widget.js"></script>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header class="bg-dark text-white py-4 text-center">
+        <h1>Liam Jackson</h1>
+        {% if not user.is_authenticated %}
+            <!-- Adjusting the button size and adding custom position classes -->
+            <a href="{% provider_login_url 'google' %}" class="btn btn-outline-light btn-sm position-absolute top-0 end-0 m-3">
+                Login with Google
+            </a>
+        {% endif %}
+    </header>
+
+    <main class="flex-grow-1">
+        <section id="about" class="container py-5">
+            <h2 class="text-center mb-4">About Me</h2>
+            <p class="lead text-center">Hi, I'm Liam Jackson, a student of BCIT Computer Information Technology.</p>
+        </section>
+
+        <section id="projects" class="container py-5">
+            <h2 class="text-center mb-4">Projects</h2>
+            <ul class="list-group">
+                {% for project in projects %}
+                    <li class="list-group-item">
+                        <h3>{{ project.title }}</h3>
+                        <p>{{ project.description }}</p>
+                        {% if user.is_authenticated and project.user == user %}
+                            <a href="{% url 'portfolio:edit_project' project.id %}" class="btn btn-primary btn-sm me-2">Edit</a>
+                            <form method="POST" action="{% url 'portfolio:delete_project' project.id %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+            {% if user.is_authenticated and user.is_staff %}
+                <div class="d-flex justify-content-center">
+                    <a href="{% url 'portfolio:create_project' %}" class="btn btn-success mt-4">Create New Project</a>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+
+    <section id="github" class="container py-5 mb-5">
+            <div class="d-flex justify-content-center">
+                <div id="calendar-component" username="ljackson330" theme-color="#89cfff" background-color="#212529"></div>
+            </div>
+    </section>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

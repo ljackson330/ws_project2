@@ -1,0 +1,14 @@
+#calendar-component {
+    background-color: #212529;  /* Dark background for the box */
+    border-radius: 10px;  /* Slightly rounded corners */
+    padding: 20px;  /* Add some padding around the content */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Subtle shadow for a lifted effect */
+}
+footer {
+    margin-top: auto; /* Sticks the footer to the bottom */
+}
+.list-group-item {
+    width: 80%; /* Set to 50% of the screen width */
+    margin: 0 auto 1rem; /* Center the box and add some spacing at the bottom */
+    word-wrap: break-word; /* Ensure long words break and wrap to the next line */
+}

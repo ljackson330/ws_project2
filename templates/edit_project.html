@@ -1,0 +1,33 @@
+<!-- portfolio/templates/portfolio/edit_project.html -->
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Project</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Edit Project: {{ project.title }}</h1>
+    </header>
+
+    <section class="container">
+        <form method="POST" class="form-container">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn save-btn">Save Changes</button>
+                <a href="{% url 'portfolio:index' %}" class="btn cancel-btn">Cancel</a>
+            </div>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Portfolio Website</p>
+    </footer>
+</body>
+</html>
