@@ -29,6 +29,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+STATIC_ROOT = '/var/www/WebServer/static/'
+
 
 # Application definition
 
